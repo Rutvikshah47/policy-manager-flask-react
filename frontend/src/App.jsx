@@ -12,16 +12,18 @@ function App() {
   const [form, setForm] = useState({});
   const [file, setFile] = useState(null);
   console.log("App component rendered");
+  const BASE_URL = "https://policy-manager-flask-react.onrender.com";
+
   const login = async () => {
     console.log("Attempting login...");
-    const res = await axios.post("http://localhost:5000/login", { username: "ramya", password: "ramya.123" });
+    const res = await axios.post("${BASE_URL}/login", { username: "ramya", password: "ramya.123" });
     console.log("Login response:", res.data);
     if (res.data.status === "success") setLoggedIn(true);
   };
 
   const fetchPolicies = async () => {
     console.log("Fetching policies...");
-    const res = await axios.get("http://localhost:5000/get_policies", { params: { search, status } });
+    const res = await axios.get("${BASE_URL}/get_policies", { params: { search, status } });
     console.log("Policies fetched:", res.data);
     setPolicies(res.data);
   };
@@ -31,13 +33,13 @@ function App() {
     const data = new FormData();
     Object.entries(form).forEach(([key, value]) => data.append(key, value));
     data.append("file", file);
-    await axios.post("http://localhost:5000/add_policy", data);
+    await axios.post("${BASE_URL}/add_policy", data);
     fetchPolicies();
   };
 
   const exportData = () => {
     console.log("Exporting data...");
-    window.open("http://localhost:5000/export", '_blank');
+    window.open("${BASE_URL}/export", '_blank');
   };
 
   useEffect(() => { if (loggedIn) fetchPolicies(); }, [loggedIn, search, status]);
