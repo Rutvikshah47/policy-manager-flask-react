@@ -16,14 +16,14 @@ function App() {
 
   const login = async () => {
     console.log("Attempting login...");
-    const res = await axios.post("${BASE_URL}/login", { username: "ramya", password: "ramya.123" });
+    const res = await axios.post("https://policy-manager-flask-react.onrender.com/login", { username: "ramya", password: "ramya.123" });
     console.log("Login response:", res.data);
     if (res.data.status === "success") setLoggedIn(true);
   };
 
   const fetchPolicies = async () => {
     console.log("Fetching policies...");
-    const res = await axios.get("${BASE_URL}/get_policies", { params: { search, status } });
+    const res = await axios.get("https://policy-manager-flask-react.onrender.com/get_policies", { params: { search, status } });
     console.log("Policies fetched:", res.data);
     setPolicies(res.data);
   };
@@ -33,13 +33,13 @@ function App() {
     const data = new FormData();
     Object.entries(form).forEach(([key, value]) => data.append(key, value));
     data.append("file", file);
-    await axios.post("${BASE_URL}/add_policy", data);
+    await axios.post("https://policy-manager-flask-react.onrender.com/add_policy", data);
     fetchPolicies();
   };
 
   const exportData = () => {
     console.log("Exporting data...");
-    window.open("${BASE_URL}/export", '_blank');
+    window.open("https://policy-manager-flask-react.onrender.com/export", '_blank');
   };
 
   useEffect(() => { if (loggedIn) fetchPolicies(); }, [loggedIn, search, status]);
