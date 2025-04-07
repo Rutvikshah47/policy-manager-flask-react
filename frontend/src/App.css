@@ -1,0 +1,9 @@
+/* frontend/src/App.css */
+button {
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  input, select {
+    border-radius: 6px;
+  }
+  
